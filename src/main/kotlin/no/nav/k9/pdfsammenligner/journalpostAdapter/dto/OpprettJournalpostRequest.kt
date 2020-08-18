@@ -1,7 +1,7 @@
 package no.nav.k9.pdfsammenligner.journalpostAdapter.dto
 
 data class OpprettJournalpostRequest(
-        val journalpostType: String,
+        val journalpostType: String?,
         val avsenderMottaker: AvsenderMottaker,
         val bruker: Bruker?,
         val tema: String?,

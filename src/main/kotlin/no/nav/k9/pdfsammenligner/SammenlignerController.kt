@@ -1,16 +1,14 @@
 package no.nav.k9.pdfsammenligner
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("/pdf")
-class SammenlignerController(val sammenligner: Sammenligner) {
+class SammenlignerController(val sammenligner: Sammenligner, val resultatLogger: ResultatLogger) {
 
-    @GetMapping("ny/{key}")
-    fun nyPdf(pdf: ByteArray, key: String) : Mono<Boolean> {
-        return Mono.just(sammenligner.sammenlign(key, pdf)?.isEqual ?: true)
+    @PostMapping("ny/{key}")
+    fun nyPdf(@RequestBody pdf: ByteArray, @PathVariable key: String) {
+        sammenligner.sammenlign(key, pdf)?.let{ resultatLogger.logg(key, it) }
     }
 }
