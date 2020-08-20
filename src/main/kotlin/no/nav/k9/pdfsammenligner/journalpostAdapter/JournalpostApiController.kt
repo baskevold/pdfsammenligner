@@ -39,9 +39,9 @@ class JournalpostApiController(val sammenligner: Sammenligner,
 
     private fun lagNøkkel(journalpostRequest: OpprettJournalpostRequest): String {
         return if (journalpostRequest.tema != null) {
-            "${journalpostRequest.tema}_${journalpostRequest.sak.fagsakId}"
+            "${journalpostRequest.tema}_${journalpostRequest.sak.fagsakId}_${journalpostRequest.tittel}"
         } else {
-            journalpostRequest.sak.fagsakId
+            "${journalpostRequest.sak.fagsakId}_${journalpostRequest.tittel}"
         }
     }
 }
